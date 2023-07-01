@@ -1,12 +1,14 @@
-function Sidebar_right({hght="60%"})
+import styled from "styled-components";
+function Sidebar_right({hght="80%"})
 {
-    const style={
-        height: hght,
-        backgroundColor: "rgb(210, 210, 210)"
-    };
-
+    
+    const Style= styled.div`
+        height: ${hght};
+        background-color: rgb(210, 210, 210);
+    `;
+    
     return(
-        <div class="col-2" style={style}>kek</div>
+        <Style className ="col-2">kek</Style>
     );
 }
 export default Sidebar_right;

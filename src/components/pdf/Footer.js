@@ -1,7 +1,12 @@
-function Footer({hght="30%"})
+import styled from 'styled-components';
+function Footer({hght="100%"})
 {
+    const Style = styled.div`
+        height: ${hght};
+        background-color: green;
+    `;
     return(
-        <div class="col-12 bg-success" style={{height: hght}}>kek</div>
+        <Style className="col-12">kek</Style>
     );
 }
 export default Footer;

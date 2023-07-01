@@ -1,8 +1,13 @@
-function Content({hght="60%"})
+import styled from 'styled-components';
+function Content({hght="80%"})
 {
+    const Style = styled.div`
+        overflow-y: scroll;
+        height: ${hght};
+        background-color: white;
+    `;
     return(
-        <div class="col-8 bg-light" style={{overflowY:"scroll", height:hght}}>
-        </div>
+        <Style className="col-8">Content </Style>
     );
 }
 export default Content;
