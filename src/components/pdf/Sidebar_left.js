@@ -7,7 +7,7 @@ function List({name, pic})
 {
     return(
             <a href="">
-                <div class="row">
+                <div class="row py-2">
                     <div class="col-3">
                         <i class={pic} style={{fontSize: "20px"}}></i>
                     </div>
@@ -19,6 +19,7 @@ function List({name, pic})
 function Sidebar_left({hght="80%"})
 {
     const Style = styled.div`
+        overflow-y: scroll;
         height : ${hght};
         background-color: rgb(210, 210, 210);
     `;
