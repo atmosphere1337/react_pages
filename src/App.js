@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Pdf from "./pages/pdf/Pdf";
 import Home from "./pages/home/Home";
-
+import City from "./pages/city/City"
 
 function Headerbtn({name='kek'})
 {
@@ -80,16 +80,11 @@ function Hsc()
 }
 function App() {
   return (
-    /*
-    <div className="App">
-      <Hsc/>
-      <Footer/>
-    </div>
-   */ 
    <BrowserRouter>
       <Routes>
           <Route path="/" element={<Home />}/>
           <Route path="/pdf" element={<Pdf />} />
+          <Route path="/city" element={<City />} />
       </Routes>
     </BrowserRouter>
   );

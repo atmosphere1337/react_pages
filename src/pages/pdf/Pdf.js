@@ -5,11 +5,6 @@ import Sidebar_right from "../../components/pdf/Sidebar_right.js";
 import Footer from "../../components/pdf/Footer.js";
 function Pdf()
 {
-   /* 
-        <div>Hello world</div>
-        <i class="bi bi-bell-fill text-danger" style={{fontSize: "40px"}}></i>
-        <i class="bi bi-arrow-repeat" style={{fontSize: "40px", color: "green"}}></i>
-    */
     return (
         <div class="bg-warning">
             <div class="container-fluid min-vh-100">
