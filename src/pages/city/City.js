@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 function reqF(method_arg, path_arg, output_arg, input_arg)
 {
 	let url = "http://127.0.0.1:4000/city/api/v1" + path_arg;
@@ -107,7 +108,7 @@ function Form({type, context=[], trigger})
 	</div>
 	);
 }
-function City()
+function Page({ccs})
 {
 	const [allData, setAllData] = useState([]);
 	const [trigger, activateTrigger] = useState(0);
@@ -126,21 +127,88 @@ function City()
 			{mode == 1 && <Form type="create" context={allData} trigger={activateTrigger} /> }
 			{mode == 2 && <Form type="delete" context={allData} trigger={activateTrigger} /> }
 			{mode == 3 && <Form type="update" context={allData} trigger={activateTrigger} /> }
-			<LogReg />
+			<div>
+				<button onClick={() => { ccs('welcome') }}>Logout</button> {/*==============================*/}
+			</div>
 		</div>
 	);
 };
 
-class LogReg extends React.Component {
+class FormLogReg extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {login: '', password: '',};
+	}
+	setLogin = (e) => this.setState({login: e.target.value});
+	setPassword = (e) => this.setState({password: e.target.value});
+	sender = (e) => {
+		e.preventDefault();
+		let url = 'http://127.0.0.1:4000/city/api/v1/user/';
+		let data = {login: this.state.login, password: this.state.password};
+		if (this.props.mode == 'login') {
+			axios.put( url, data)
+				.then( res => console.log(res.data) )
+				.catch( err => alert('err'));
+			this.props.ccs('page'); //==============================================================================
+		}
+		else {
+			axios.post( url, data)
+				.then( res => console.log(res.data) )
+				.catch( err => alert('err'));
+			this.props.wcs('signin'); //======================================================================
+		}
+		
+	};
 	render() {
 		return (
-		<>
-			<form>
-				<input />
-				<input />
-				<input type="submit" />
+			<form onSubmit={this.sender}>
+				<input type="text" placeholder="login" value={this.state.login} onChange={this.setLogin} />
+				<input type="password" placeholder="password" value={this.state.password} onChange={this.setPassword} />
+				<input type="submit" value="OK" />
 			</form>
-		</>
+		);
+	}
+}
+FormLogReg.defaultProps = {mode: 'login'};
+class Welcome extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {mode: 'signin'};
+	}
+	welChangeState = (ins) => { this.setState({mode: ins}) };
+	render() {
+		if (this.state.mode == 'signup') {
+			return (
+				<>
+					<div> Register page </div>
+					<FormLogReg wcs={this.welChangeState} ccs={this.props.ccs} mode='register' />
+					<button onClick={ () => {this.setState({mode:'signin'})} }> Sign In </button>
+				</>
+			);
+		}  
+		else {
+			return (
+				<>
+					<div> Login page </div> 
+					<FormLogReg wcs={this.welChangeState} ccs={this.props.ccs} mode='login' />
+					<button onClick={ () => {this.setState({mode:'signup'})} }> Create new account </button>
+				</>
+			);
+		}
+	}
+}
+class City extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {mode: 'welcome'};
+	}
+	citChangeState = (ins) => {this.setState({mode: ins})};
+	render() {
+		return (
+			<>
+				{ this.state.mode=='page' && <Page ccs={this.citChangeState} /> }
+				{ this.state.mode=='welcome' && <Welcome ccs={ this.citChangeState } /> }
+			</>
 		);
 	}
 }
