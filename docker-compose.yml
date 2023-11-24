@@ -1,0 +1,8 @@
+services:
+  nginx-react:
+    build: .
+    ports:
+    - "80:80"
+    volumes:
+    - .:/var/www/html/
+    - ./docker/conf.d:/etc/nginx/conf.d/
